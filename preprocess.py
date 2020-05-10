@@ -82,18 +82,18 @@ def main():
 
     print(opt)
 
-    # logger.info("Building `Fields` object...")
-    # fields = inputters.get_fields(opt.data_type)
+    logger.info("Building `Fields` object...")
+    fields = inputters.get_fields(opt.data_type)
 
-    # logger.info("Building & saving training data...")
-    # train_dataset_files = build_save_dataset('train', fields, opt)
+    logger.info("Building & saving training data...")
+    train_dataset_files = build_save_dataset('train', fields, opt)
 
-    # logger.info("Building & saving validation data...")
-    # build_save_dataset('valid', fields, opt)
+    logger.info("Building & saving validation data...")
+    build_save_dataset('valid', fields, opt)
 
-    # logger.info("Building & saving vocabulary...")
-    # # train_dataset_files = 'data/processed.train.pt'
-    # build_save_vocab(train_dataset_files, opt.data_type, fields, opt)
+    logger.info("Building & saving vocabulary...")
+    # train_dataset_files = 'data/processed.train.pt'
+    build_save_vocab(train_dataset_files, opt.data_type, fields, opt)
 
 
 if __name__ == "__main__":
