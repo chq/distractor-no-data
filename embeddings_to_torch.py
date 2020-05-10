@@ -70,7 +70,7 @@ def get_embeddings(file_enc, opt, flag):
 
 def match_embeddings(vocab, emb, opt):
     if emb is None:
-        return None, -1
+        return None, {"match": -1, "miss": -1}
 
     dim = len(six.next(six.itervalues(emb)))
     filtered_embeddings = np.zeros((len(vocab), dim))
