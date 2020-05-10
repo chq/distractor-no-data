@@ -115,7 +115,7 @@ def main():
 
     embeddings_enc = get_embeddings(opt.emb_file_enc, opt, flag='enc')
     embeddings_dec = get_embeddings(opt.emb_file_dec, opt, flag='dec')
-   logger.info("embeddings_enc is None: {}, embeddings_dec is None {}".format(embeddings_enc is None, embeddings_dec is None))
+    logger.info("embeddings_enc is None: {}, embeddings_dec is None {}".format(embeddings_enc is None, embeddings_dec is None))
 
     filtered_enc_embeddings, enc_count = match_embeddings(enc_vocab,
                                                           embeddings_enc,
