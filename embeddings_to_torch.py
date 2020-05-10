@@ -69,7 +69,7 @@ def get_embeddings(file_enc, opt, flag):
 
 
 def match_embeddings(vocab, emb, opt):
-    if vocab is None:
+    if emb is None:
         return None, -1
 
     dim = len(six.next(six.itervalues(emb)))
