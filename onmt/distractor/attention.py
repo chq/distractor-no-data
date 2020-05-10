@@ -71,7 +71,7 @@ class HierarchicalAttention(nn.Module):
                       static_attn.unsqueeze(1).unsqueeze(-1)).view(word_batch, 1, words_max_len * word_max_len)
         mask = sequence_mask(word_lengths.view(-1), max_len=word_max_len).view(
             word_batch, words_max_len * word_max_len).unsqueeze(1)
-        align.masked_fill_(1 - mask.cuda(), -float('inf'))
+        align.masked_fill_(~mask.cuda(), -float('inf'))
         align_vectors = self.softmax(align) + 1e-20
         c = torch.bmm(align_vectors, word_bank).squeeze(1)
         concat_c = torch.cat([c, source], -1).view(target_batch, target_dim * 2)
