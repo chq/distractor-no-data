@@ -101,7 +101,7 @@ def main():
                         help="Output file for the prepared data")
     parser.add_argument('-dict_file', required=True,
                         help="Dictionary file")
-    parser.add_argument('-verbose', action="store_true", default=True)
+    parser.add_argument('-verbose', action="store_true", default=False)
     parser.add_argument('-skip_lines', type=int, default=0,
                         help="Skip first lines of the embedding file")
     parser.add_argument('-type', choices=TYPES, default="GloVe")
