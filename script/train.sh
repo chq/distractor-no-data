@@ -18,7 +18,7 @@ python -u train_single.py \
         -data=../data/processed \
         -save_model=../data/model/${DATE}_${MODEL} \
         -save_checkpoint_steps=3000 \
-        -gpuid=-1 \
+        -gpuid=0 \
         -pre_word_vecs_enc=../data/processed.glove.enc.pt \
         -pre_word_vecs_dec=../data/processed.glove.dec.pt \
         -batch_size=32 \

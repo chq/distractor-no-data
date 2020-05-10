@@ -32,6 +32,9 @@ def get_vocabs(dict_file):
 
 
 def get_embeddings(file_enc, opt, flag):
+    if file_enc is None:
+        return None
+
     embs = dict()
     if flag == 'enc':
         for (i, l) in enumerate(open(file_enc, 'rb')):
@@ -66,6 +69,9 @@ def get_embeddings(file_enc, opt, flag):
 
 
 def match_embeddings(vocab, emb, opt):
+    if vocab is None:
+        return None, -1
+
     dim = len(six.next(six.itervalues(emb)))
     filtered_embeddings = np.zeros((len(vocab), dim))
     count = {"match": 0, "miss": 0}
@@ -87,15 +93,15 @@ TYPES = ["GloVe", "word2vec"]
 def main():
 
     parser = argparse.ArgumentParser(description='embeddings_to_torch.py')
-    parser.add_argument('-emb_file_enc', required=True,
+    parser.add_argument('-emb_file_enc', required=False,
                         help="source Embeddings from this file")
-    parser.add_argument('-emb_file_dec', required=True,
+    parser.add_argument('-emb_file_dec', required=False,
                         help="target Embeddings from this file")
     parser.add_argument('-output_file', required=True,
                         help="Output file for the prepared data")
     parser.add_argument('-dict_file', required=True,
                         help="Dictionary file")
-    parser.add_argument('-verbose', action="store_true", default=False)
+    parser.add_argument('-verbose', action="store_true", default=True)
     parser.add_argument('-skip_lines', type=int, default=0,
                         help="Skip first lines of the embedding file")
     parser.add_argument('-type', choices=TYPES, default="GloVe")
@@ -127,15 +133,19 @@ def main():
                    match_percent[1]))
 
     logger.info("\nFiltered embeddings:")
-    logger.info("\t* enc: %s" % str(filtered_enc_embeddings.size()))
-    logger.info("\t* dec: %s" % str(filtered_dec_embeddings.size()))
+    if filtered_enc_embeddings is not None:
+        logger.info("\t* enc: %s" % str(filtered_enc_embeddings.size()))
+    if filtered_dec_embeddings is not None:
+        logger.info("\t* dec: %s" % str(filtered_dec_embeddings.size()))
 
     enc_output_file = opt.output_file + ".enc.pt"
     dec_output_file = opt.output_file + ".dec.pt"
     logger.info("\nSaving embedding as:\n\t* enc: %s\n\t* dec: %s"
                 % (enc_output_file, dec_output_file))
-    torch.save(filtered_enc_embeddings, enc_output_file)
-    torch.save(filtered_dec_embeddings, dec_output_file)
+    if filtered_enc_embeddings is not None:
+        torch.save(filtered_enc_embeddings, enc_output_file)
+    if filtered_dec_embeddings is not None:
+        torch.save(filtered_dec_embeddings, dec_output_file)
     logger.info("\nDone.")
 
 
