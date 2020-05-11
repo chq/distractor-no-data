@@ -194,10 +194,10 @@ class RNNEncoder(nn.Module):
                         dropout=dropout,
                         bidirectional=bidirectional)
 
-        self.no_pack_padded_seq = self.no_pack_padded_seq.cuda()
 
     def forward(self, src_emb, lengths=None):
         "See :obj:`EncoderBase.forward()`"
+        src_emb = src_emb.cuda()
         packed_emb = src_emb
         if lengths is not None and not self.no_pack_padded_seq:
             # Lengths data is wrapped inside a Tensor.
