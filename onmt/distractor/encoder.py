@@ -202,7 +202,7 @@ class RNNEncoder(nn.Module):
             lengths_list = lengths.view(-1).tolist()
             packed_emb = pack(src_emb, lengths_list)
 
-        memory_bank, encoder_final = self.rnn(packed_emb)
+        memory_bank, encoder_final = self.rnn(packed_emb.cuda())
 
         if lengths is not None and not self.no_pack_padded_seq:
             memory_bank = unpack(memory_bank)[0]
