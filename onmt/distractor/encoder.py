@@ -288,7 +288,7 @@ class DistractorEncoder(nn.Module):
         wrapped_word = PermutationWrapper2D(src, word_length, sent_length, batch_first=True, rnn_type=self.rnn_type)
         sorted_word, sorted_word_length, sorted_bs = wrapped_word.sort()  # sort
         # [feat, bs, len] -> [len, bs, feat]
-        sorted_word_emb = self.embeddings(sorted_word.unsqueeze(-1))  # get embedding
+        sorted_word_emb = self.embeddings(sorted_word.unsqueeze(-1)).cuda()  # get embedding
         sorted_word_bank, sorted_word_state, _ = self.word_encoder(sorted_word_emb, sorted_word_length)
         word_bank, word_state = wrapped_word.remap(sorted_word_bank, sorted_word_state)
 
