@@ -16,3 +16,16 @@ python -u translate.py \
     -beam_size=50 \
     -n_best=50 \
     -gpu=0
+
+
+!python -u translate.py \
+    -model=../data/model/0511_model_bs24_step_3000.pt \
+    -data=../data/distractor/race_test_updated.json \
+    -output=../data/pred/0511_model_bs24_step_3000.txt \
+    -share_vocab \
+    -block_ngram_repeat=1 \
+    -replace_unk \
+    -batch_size=1 \
+    -beam_size=50 \
+    -n_best=50 \
+    -gpu=0
